@@ -102,10 +102,13 @@ const searchGame = async (gameName) => {
     headless: true,
   });
   const page = await browser.newPage();
+  console.log("Puppeteer iniciado.", gameName);
 
-  const encodedGameName = gameName.split(" ").join("+");
+  const encodedGameName = gameName?.split(" ").join("+");
 
   await page.goto("https://game3rb.com/?s=" + encodedGameName);
+
+  console.log("Página carregada.", "https://game3rb.com/?s=" + encodedGameName);
 
   const gamesFinded = await page.evaluate(() => {
     const games = document.querySelectorAll(".post-hentry");
@@ -113,7 +116,7 @@ const searchGame = async (gameName) => {
 
     games.forEach((game) => {
       const tags = game.querySelector(".entry-categories-inner").innerText;
-      const tagsArray = tags.split("\n");
+      const tagsArray = tags?.split("\n");
 
       gamesArray.push({
         title: game.querySelector(".entry-title").innerText,
