@@ -28,7 +28,6 @@ module.exports = {
     console.log(`Mensagem: ${text}`);
     console.log(`Canal: ${channel}`);
 
-    // Verifica se o canal especificado é um canal de texto
     if (channel && channel.type !== ChannelType.GuildText) {
       return interaction.editReply({
         content: "Por favor, selecione um canal de texto válido.",
@@ -36,13 +35,10 @@ module.exports = {
       });
     }
 
-    // Define o canal onde a mensagem será enviada
     const targetChannel = channel || interaction.channel;
 
-    // Envia a mensagem no canal selecionado
     await targetChannel.send(text);
 
-    // Confirma ao usuário que a mensagem foi enviada
     await interaction.editReply({
       content: `Mensagem enviada com sucesso para o canal ${targetChannel}.`,
       ephemeral: true,
